@@ -25,7 +25,6 @@ export class BannerService {
           search: '',
           pageSize: 10,
           pageIndex: 0,
-          includes: ['name', 'channelId', 'id'],
         },
         { headers }
       )

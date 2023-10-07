@@ -1,8 +1,22 @@
-<p>banners</p>
-<ul>
-  <li *ngFor="let banner of banners">
-    ID: {{ banner.id }}<br />
-    Name: {{ banner.name }}<br />
-    Channel ID: {{ banner.channelId }}<br /><br />
-  </li>
-</ul>
+<div>
+  <div *ngFor="let banner of banners">
+    <mat-card style="margin-top: 100px; width: 500px">
+      <mat-card-title>Name: {{ banner.name }}</mat-card-title>
+      <img
+        *ngIf="banner.url"
+        mat-card-image
+        [src]="banner.url"
+        (error)="handleImageError($event)"
+      />
+      <mat-card-content>
+        <p>ID: {{ banner.id }}</p>
+        <p>Channel ID: {{ banner.channelId }}</p>
+        <p>Name: {{ banner.name }}</p>
+        <p>Status: {{ banner.active }}</p>
+        <p>Zone: {{ banner.zoneId }}</p>
+        <p>Start Date: {{ banner.startDate }}</p>
+        <p>End Date: {{ banner.endDate }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

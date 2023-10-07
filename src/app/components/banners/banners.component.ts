@@ -8,6 +8,7 @@ import { BannerService } from '../../services/banner.service';
 })
 export class BannersComponent {
   banners: any[] = [];
+  displayedColumns: string[] = ['id', 'name', 'channelId'];
 
   constructor(private bannerService: BannerService) {}
 
@@ -16,5 +17,10 @@ export class BannersComponent {
       this.banners = data;
       console.log(this.banners);
     });
+  }
+
+  handleImageError(event: any) {
+    event.target.src =
+      'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
   }
 }
