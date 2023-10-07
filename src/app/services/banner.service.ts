@@ -13,7 +13,7 @@ export class BannerService {
 
   constructor(private http: HttpClient) {}
 
-  getBanners(): Observable<any> {
+  getBanners(pageIndex: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
     });
@@ -22,12 +22,11 @@ export class BannerService {
       .post(
         this.apiUrl,
         {
-          search: '',
           pageSize: 10,
-          pageIndex: 0,
+          pageIndex,
         },
         { headers }
       )
-      .pipe(map((response: any) => response.data.entities));
+      .pipe(map((response: any) => response.data));
   }
 }

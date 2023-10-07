@@ -1,22 +1,34 @@
 <div>
-  <div *ngFor="let banner of banners">
-    <mat-card style="margin-top: 100px; width: 500px">
-      <mat-card-title>Name: {{ banner.name }}</mat-card-title>
-      <img
-        *ngIf="banner.url"
-        mat-card-image
-        [src]="banner.url"
-        (error)="handleImageError($event)"
-      />
-      <mat-card-content>
-        <p>ID: {{ banner.id }}</p>
-        <p>Channel ID: {{ banner.channelId }}</p>
-        <p>Name: {{ banner.name }}</p>
-        <p>Status: {{ banner.active }}</p>
-        <p>Zone: {{ banner.zoneId }}</p>
-        <p>Start Date: {{ banner.startDate }}</p>
-        <p>End Date: {{ banner.endDate }}</p>
-      </mat-card-content>
-    </mat-card>
+  <div class="container">
+    <div
+      *ngFor="
+        let banner of banners | slice : page * pageSize : (page + 1) * pageSize
+      "
+    >
+      <mat-card style="margin-top: 100px; width: 350px">
+        <mat-card-title>Name: {{ banner.name }}</mat-card-title>
+        <img
+          *ngIf="banner.url"
+          mat-card-image
+          [src]="banner.url"
+          (error)="handleImageError($event)"
+        />
+        <mat-card-content>
+          <p>ID: {{ banner.id }}</p>
+          <p>Channel ID: {{ banner.channelId }}</p>
+          <p>Name: {{ banner.name }}</p>
+          <p>Status: {{ banner.active }}</p>
+          <p>Zone: {{ banner.zoneId }}</p>
+          <p>Start Date: {{ banner.startDate }}</p>
+          <p>End Date: {{ banner.endDate }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
+
+  <mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
 </div>
