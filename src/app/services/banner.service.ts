@@ -13,7 +13,11 @@ export class BannerService {
 
   constructor(private http: HttpClient) {}
 
-  getBanners(pageIndex: number): Observable<any> {
+  getBanners(
+    pageIndex: number,
+    sortBy: string,
+    sortDirection: string
+  ): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
     });
@@ -24,6 +28,8 @@ export class BannerService {
         {
           pageSize: 10,
           pageIndex,
+          sortBy,
+          sortDirection,
         },
         { headers }
       )

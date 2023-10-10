@@ -1,4 +1,28 @@
 <div>
+  <mat-form-field>
+    <mat-label>Sort By</mat-label>
+    <mat-select [(value)]="selectedSort" (selectionChange)="onSortChange()">
+      <mat-option *ngFor="let option of sortOptions" [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Sort Direction</mat-label>
+    <mat-select
+      [(value)]="selectedSortDirection"
+      (selectionChange)="onSortDirectionChange()"
+    >
+      <mat-option
+        *ngFor="let option of directionsSortOptions"
+        [value]="option.value"
+      >
+        {{ option.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <div class="container">
     <div
       *ngFor="
