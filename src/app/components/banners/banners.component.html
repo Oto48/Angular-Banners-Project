@@ -30,10 +30,12 @@
       mode="side"
       [opened]="isDrawerOpen"
     >
-      <app-banner-form></app-banner-form>
-      <button mat-button (click)="closeDrawer('asd')">Close Drawer</button>
+      <app-banner-form (saveItem)="saveItem($event)"></app-banner-form>
+      <button mat-button (click)="closeDrawer()">Close Drawer</button>
     </mat-sidenav>
   </mat-sidenav-container>
+
+  <button mat-button (click)="openDrawer()">add banner</button>
 
   <div class="container">
     <div

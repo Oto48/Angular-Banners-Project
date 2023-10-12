@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BannerService } from '../../services/banner.service';
 
@@ -9,6 +9,8 @@ import { BannerService } from '../../services/banner.service';
 })
 export class BannerFormComponent {
   form: FormGroup;
+
+  @Output() saveItem = new EventEmitter<any>();
 
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
     this.form = this.fb.group({
@@ -22,7 +24,7 @@ export class BannerFormComponent {
       url: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      active: ['', Validators.required],
+      active: [false, Validators.required],
     });
 
     // Subscribe to the bannerData$
@@ -38,7 +40,8 @@ export class BannerFormComponent {
     if (this.form.valid) {
       const formData = this.form.value;
       this.bannerService.saveBanner(formData).subscribe((response) => {
-        console.log('Banner saved:', response);
+        this.saveItem.emit(response);
+        this.form.reset();
       });
     }
   }

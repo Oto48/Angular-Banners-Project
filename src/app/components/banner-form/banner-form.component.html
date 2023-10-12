@@ -16,7 +16,7 @@
     <input type="text" id="zoneId" formControlName="zoneId" />
 
     <label for="priority">priority:</label>
-    <input type="text" id="priority" formControlName="priority" />
+    <input type="number" id="priority" formControlName="priority" />
 
     <label for="fileId">fileId:</label>
     <input type="text" id="fileId" formControlName="fileId" />
@@ -28,13 +28,13 @@
     <input type="text" id="fileId" formControlName="fileId" />
 
     <label for="startDate">startDate:</label>
-    <input type="text" id="startDate" formControlName="startDate" />
+    <input type="date" id="startDate" formControlName="startDate" />
 
     <label for="endDate">endDate:</label>
-    <input type="text" id="endDate" formControlName="endDate" />
+    <input type="date" id="endDate" formControlName="endDate" />
 
     <label for="active">active:</label>
-    <input type="text" id="active" formControlName="active" />
+    <input type="checkbox" id="active" formControlName="active" />
 
     <button type="submit" [disabled]="form.invalid">Submit</button>
   </form>

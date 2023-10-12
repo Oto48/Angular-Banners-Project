@@ -70,13 +70,22 @@ export class BannersComponent implements OnInit {
       });
   }
 
-  openDrawer(item: any) {
+  openDrawer(item?: any) {
     this.isDrawerOpen = !this.isDrawerOpen;
     this.bannerService.setBannerData(item);
   }
 
-  closeDrawer(item: any) {
+  closeDrawer() {
     this.isDrawerOpen = !this.isDrawerOpen;
+  }
+
+  saveItem(newItem: any) {
+    const index = this.banners.find((banner) => banner.id === newItem.data.id);
+    if (index) {
+      Object.assign(index, newItem.data);
+    } else {
+      this.banners.push(newItem.data);
+    }
   }
 
   // Handle image loading error
