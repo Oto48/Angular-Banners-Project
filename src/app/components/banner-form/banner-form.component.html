@@ -1,0 +1,41 @@
+<div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="id">ID:</label>
+    <input type="text" id="id" formControlName="id" />
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" />
+
+    <label for="channelId">channelId:</label>
+    <input type="text" id="channelId" formControlName="channelId" />
+
+    <label for="language">language:</label>
+    <input type="text" id="language" formControlName="language" />
+
+    <label for="zoneId">zoneId:</label>
+    <input type="text" id="zoneId" formControlName="zoneId" />
+
+    <label for="priority">priority:</label>
+    <input type="text" id="priority" formControlName="priority" />
+
+    <label for="fileId">fileId:</label>
+    <input type="text" id="fileId" formControlName="fileId" />
+
+    <label for="url">url:</label>
+    <input type="text" id="url" formControlName="url" />
+
+    <label for="fileId">fileId:</label>
+    <input type="text" id="fileId" formControlName="fileId" />
+
+    <label for="startDate">startDate:</label>
+    <input type="text" id="startDate" formControlName="startDate" />
+
+    <label for="endDate">endDate:</label>
+    <input type="text" id="endDate" formControlName="endDate" />
+
+    <label for="active">active:</label>
+    <input type="text" id="active" formControlName="active" />
+
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+  </form>
+</div>

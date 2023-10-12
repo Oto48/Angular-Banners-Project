@@ -23,6 +23,18 @@
     </mat-select>
   </mat-form-field>
 
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav
+      class="example-form"
+      #drawer
+      mode="side"
+      [opened]="isDrawerOpen"
+    >
+      <app-banner-form></app-banner-form>
+      <button mat-button (click)="closeDrawer('asd')">Close Drawer</button>
+    </mat-sidenav>
+  </mat-sidenav-container>
+
   <div class="container">
     <div
       *ngFor="
@@ -46,6 +58,7 @@
           <p>Start Date: {{ banner.startDate }}</p>
           <p>End Date: {{ banner.endDate }}</p>
         </mat-card-content>
+        <button mat-button (click)="openDrawer(banner)">edit banner</button>
       </mat-card>
     </div>
   </div>

@@ -12,6 +12,7 @@ export class BannersComponent implements OnInit {
   pageSize = 10;
   length = 0;
   page = 0;
+  isDrawerOpen = false;
 
   selectedSort: string = 'id';
   selectedSortDirection: string = 'asc';
@@ -67,6 +68,15 @@ export class BannersComponent implements OnInit {
         this.banners = banners.entities;
         this.length = banners.total;
       });
+  }
+
+  openDrawer(item: any) {
+    this.isDrawerOpen = !this.isDrawerOpen;
+    this.bannerService.setBannerData(item);
+  }
+
+  closeDrawer(item: any) {
+    this.isDrawerOpen = !this.isDrawerOpen;
   }
 
   // Handle image loading error
