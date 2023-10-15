@@ -36,6 +36,10 @@ export class BannerFormComponent {
     });
   }
 
+  onImageUploaded(imageId: string): void {
+    this.form.patchValue({ url: imageId });
+  }
+
   onSubmit() {
     if (this.form.valid) {
       const formData = this.form.value;

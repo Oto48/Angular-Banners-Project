@@ -28,6 +28,7 @@
       class="example-form"
       #drawer
       mode="side"
+      position="end"
       [opened]="isDrawerOpen"
     >
       <app-banner-form (saveItem)="saveItem($event)"></app-banner-form>
@@ -46,9 +47,9 @@
       <mat-card style="margin-top: 100px; width: 350px">
         <mat-card-title>Name: {{ banner.name }}</mat-card-title>
         <img
-          *ngIf="banner.url"
+          *ngIf="banner.img"
           mat-card-image
-          [src]="banner.url"
+          [src]="banner.img"
           (error)="handleImageError($event)"
         />
         <mat-card-content>

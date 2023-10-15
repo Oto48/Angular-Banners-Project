@@ -21,6 +21,8 @@
     <label for="fileId">fileId:</label>
     <input type="text" id="fileId" formControlName="fileId" />
 
+    <app-image-upload (imageUploaded)="onImageUploaded($event)"></app-image-upload>
+
     <label for="url">url:</label>
     <input type="text" id="url" formControlName="url" />
 

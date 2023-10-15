@@ -67,6 +67,9 @@ export class BannersComponent implements OnInit {
       .subscribe((banners) => {
         this.banners = banners.entities;
         this.length = banners.total;
+        this.banners.forEach((element) => {
+          this.getImage(element);
+        });
       });
   }
 
@@ -86,6 +89,19 @@ export class BannersComponent implements OnInit {
     } else {
       this.banners.push(newItem.data);
     }
+  }
+
+  getImage(data: any): void {
+    this.bannerService.downloadBlob(data.url).subscribe(
+      (image: Blob) => {
+        const imageUrl = URL.createObjectURL(image);
+        data.img = imageUrl;
+      },
+      (error) => {
+        data.img = 'none';
+        console.error('Error downloading image:', error);
+      }
+    );
   }
 
   // Handle image loading error

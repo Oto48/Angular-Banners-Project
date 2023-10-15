@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
@@ -16,6 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatSelectModule,
     MatInputModule,
     MatSidenavModule,
+    FormsModule
   ],
 })
 export class MaterialModule {}

@@ -9,9 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BannersComponent } from './components/banners/banners.component';
 import { BannerFormComponent } from './components/banner-form/banner-form.component';
+import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 
 @NgModule({
-  declarations: [AppComponent, BannersComponent, BannerFormComponent],
+  declarations: [AppComponent, BannersComponent, BannerFormComponent, ImageUploadComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
