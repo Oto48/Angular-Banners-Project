@@ -86,8 +86,10 @@ export class BannersComponent implements OnInit {
     const index = this.banners.find((banner) => banner.id === newItem.data.id);
     if (index) {
       Object.assign(index, newItem.data);
+      this.getImage(index);
     } else {
       this.banners.push(newItem.data);
+      this.getImage(newItem.data);
     }
   }
 
