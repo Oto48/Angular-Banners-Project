@@ -1,21 +1,25 @@
-<mat-card>
+<mat-card class="container">
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <input matInput placeholder="ID" formControlName="id" />
-      </mat-form-field>
+      <div class="group">
+        <mat-form-field>
+          <input matInput placeholder="ID" formControlName="id" />
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name" />
+        </mat-form-field>
+      </div>
 
-      <mat-form-field>
-        <input matInput placeholder="Name" formControlName="name" />
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput placeholder="Channel ID" formControlName="channelId" />
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput placeholder="Language" formControlName="language" />
-      </mat-form-field>
+      <div class="group">
+        <mat-form-field>
+          <input matInput placeholder="Channel ID" formControlName="channelId" />
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Language" formControlName="language" />
+        </mat-form-field>
+      </div>
 
       <mat-form-field>
         <input matInput placeholder="Zone ID" formControlName="zoneId" />

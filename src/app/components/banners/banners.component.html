@@ -25,14 +25,15 @@
 
   <mat-sidenav-container class="example-container">
     <mat-sidenav
-      class="example-form"
       #drawer
       mode="side"
       position="end"
       [opened]="isDrawerOpen"
     >
-      <app-banner-form (saveItem)="saveItem($event)"></app-banner-form>
-      <button mat-button (click)="closeDrawer()">Close Drawer</button>
+      <div class="example-form">
+        <app-banner-form (saveItem)="saveItem($event)"></app-banner-form>
+        <button mat-flat-button color="accent" (click)="closeDrawer()">Close Drawer</button>
+      </div>
     </mat-sidenav>
   </mat-sidenav-container>
 

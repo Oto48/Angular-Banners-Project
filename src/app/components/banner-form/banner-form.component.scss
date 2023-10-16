@@ -1,0 +1,13 @@
+.container {
+    width: 500px;
+
+    mat-card-content form{
+        display: flex;
+        flex-direction: column;
+
+        .group {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

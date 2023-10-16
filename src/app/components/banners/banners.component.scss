@@ -4,17 +4,17 @@
 }
 
 .example-container {
-  background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
-  max-width: 100%;
   top: 0;
   right: 0;
   bottom: 0;
   z-index: 10;
-}
 
-.example-form {
-  width: 100vw;
-  height: 500px;
-  background-color: blue;
+  .example-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
 }
