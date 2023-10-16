@@ -24,7 +24,7 @@ export class BannerFormComponent {
       url: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      active: [false, Validators.required],
+      active: [false],
     });
 
     // Subscribe to the bannerData$
