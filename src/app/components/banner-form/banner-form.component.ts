@@ -46,6 +46,7 @@ export class BannerFormComponent {
       this.bannerService.saveBanner(formData).subscribe((response) => {
         this.saveItem.emit(response);
         this.form.reset();
+        this.form.get('active')!.setValue(false);
       });
     }
   }

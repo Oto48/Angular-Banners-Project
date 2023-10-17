@@ -48,8 +48,8 @@ export class BannersComponent implements OnInit {
 
   // Event handler for page change
   onPageChange(event: any): void {
-    const pageIndex = event.pageIndex;
-    this.loadBanners(pageIndex, this.sort.active, this.sort.direction);
+    this.page = event.pageIndex;
+    this.loadBanners(this.page, this.sort.active, this.sort.direction);
   }
 
   // Private method to load banners
@@ -74,7 +74,7 @@ export class BannersComponent implements OnInit {
     this.bannerService.setBannerData(item);
   }
 
-  closeDrawer() {
+  toggleDrawer() {
     this.isDrawerOpen = !this.isDrawerOpen;
   }
 
@@ -83,9 +83,11 @@ export class BannersComponent implements OnInit {
     if (index) {
       Object.assign(index, newItem.data);
       this.getImage(index);
+      this.toggleDrawer();
     } else {
       this.getImage(newItem.data);
-      this.dataSource.sort = this.sort;
+      this.loadBanners(this.page, this.sort.active, this.sort.direction);
+      this.toggleDrawer();
     }
   }
 
