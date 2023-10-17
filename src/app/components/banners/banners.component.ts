@@ -22,10 +22,13 @@ export class BannersComponent implements OnInit {
     'id',
     'name',
     'channelId',
-    'active',
+    'language',
     'zoneId',
+    'priority',
+    'fileId',
     'startDate',
     'endDate',
+    'active',
     'img',
   ];
 
