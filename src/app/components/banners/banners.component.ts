@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BannerService } from '../../services/banner.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import {MatSort,Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-banners',
@@ -8,52 +10,46 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./banners.component.scss'],
 })
 export class BannersComponent implements OnInit {
-  banners: any[] = [];
   pageSize = 10;
   length = 0;
   page = 0;
   isDrawerOpen = false;
+  altImg = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
-  selectedSort: string = 'id';
-  selectedSortDirection: string = 'asc';
+  dataSource!: MatTableDataSource<any>;
 
-  sortOptions = [
-    { label: 'id', value: 'id' },
-    { label: 'channelId', value: 'channelId' },
-    { label: 'language', value: 'language' },
-    { label: 'zoneId', value: 'zoneId' },
-    { label: 'zoneId', value: 'zoneId' },
-  ];
-
-  directionsSortOptions = [
-    { label: 'asc', value: 'asc' },
-    { label: 'desc', value: 'desc' },
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'channelId',
+    'active',
+    'zoneId',
+    'startDate',
+    'endDate',
+    'img',
   ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private bannerService: BannerService) {}
+  constructor(private bannerService: BannerService) {
+    this.sort = new MatSort();
+  }
 
   ngOnInit(): void {
-    this.loadBanners(0, this.selectedSort, this.selectedSortDirection);
+    this.dataSource = new MatTableDataSource<any[]>([]);
+    this.loadBanners(0, this.sort.active, this.sort.direction);
   }
 
   // Event handler for sorting change
-  onSortChange(): void {
-    this.paginator.pageIndex = 0;
-    this.loadBanners(0, this.selectedSort, this.selectedSortDirection);
-  }
-
-  // Event handler for sorting direction change
-  onSortDirectionChange(): void {
-    this.paginator.pageIndex = 0;
-    this.loadBanners(0, this.selectedSort, this.selectedSortDirection);
+  onSortChange(): void {;
+    this.dataSource.sort = this.sort;
   }
 
   // Event handler for page change
   onPageChange(event: any): void {
     const pageIndex = event.pageIndex;
-    this.loadBanners(pageIndex, this.selectedSort, this.selectedSortDirection);
+    this.loadBanners(pageIndex, this.sort.active, this.sort.direction);
   }
 
   // Private method to load banners
@@ -65,9 +61,9 @@ export class BannersComponent implements OnInit {
     this.bannerService
       .getBanners(pageIndex, sortBy, sortDirection)
       .subscribe((banners) => {
-        this.banners = banners.entities;
         this.length = banners.total;
-        this.banners.forEach((element) => {
+        this.dataSource.data = banners.entities;
+        this.dataSource.data.forEach((element) => {
           this.getImage(element);
         });
       });
@@ -83,13 +79,13 @@ export class BannersComponent implements OnInit {
   }
 
   saveItem(newItem: any) {
-    const index = this.banners.find((banner) => banner.id === newItem.data.id);
+    const index = this.dataSource.data.find((banner) => banner.id === newItem.data.id);
     if (index) {
       Object.assign(index, newItem.data);
       this.getImage(index);
     } else {
-      this.banners.push(newItem.data);
       this.getImage(newItem.data);
+      this.dataSource.sort = this.sort;
     }
   }
 
@@ -100,15 +96,8 @@ export class BannersComponent implements OnInit {
         data.img = imageUrl;
       },
       (error) => {
-        data.img = 'none';
         console.error('Error downloading image:', error);
       }
     );
-  }
-
-  // Handle image loading error
-  handleImageError(event: any) {
-    event.target.src =
-      'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
   }
 }
