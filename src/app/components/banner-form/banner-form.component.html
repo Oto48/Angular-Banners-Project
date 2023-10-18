@@ -1,76 +1,78 @@
-<mat-card class="container">
-  <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="group">
-        <mat-form-field>
-          <input matInput placeholder="ID" formControlName="id" />
-        </mat-form-field>
-  
-        <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name" />
-        </mat-form-field>
-      </div>
-
-      <div class="group">
-        <mat-form-field>
-          <input matInput placeholder="Channel ID" formControlName="channelId" />
-        </mat-form-field>
-  
-        <mat-form-field>
-          <input matInput placeholder="Language" formControlName="language" />
-        </mat-form-field>
-      </div>
-
-      <mat-form-field>
-        <input matInput placeholder="Zone ID" formControlName="zoneId" />
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput type="number" placeholder="Priority" formControlName="priority" />
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput placeholder="File Id" formControlName="fileId" />
-      </mat-form-field>
-      
-      <div formArrayName="labels">
-        <div class="group" *ngFor="let labelControl of labelControls; let i = index">
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="group">
           <mat-form-field>
-            <input matInput [formControl]="labelControl" placeholder="Label" />
+            <input matInput placeholder="ID" formControlName="id" />
           </mat-form-field>
-          <button mat-icon-button color="warn" type="button" (click)="removeLabelInput(i)">
-            <mat-icon>delete</mat-icon>
-          </button>
+    
+          <mat-form-field>
+            <input matInput placeholder="Name" formControlName="name" />
+          </mat-form-field>
         </div>
-      </div>
-
-      <button mat-raised-button color="accent" type="button" (click)="addLabelInput()">Add Input</button>
-
-      <app-image-upload (imageUploaded)="onImageUploaded($event)"></app-image-upload>
-
-      <mat-form-field>
-        <input matInput placeholder="URL" formControlName="url" />
-      </mat-form-field>
-
-      <div class="group">
+  
+        <div class="group">
+          <mat-form-field>
+            <input matInput placeholder="Channel ID" formControlName="channelId" />
+          </mat-form-field>
+    
+          <mat-form-field>
+            <input matInput placeholder="Language" formControlName="language" />
+          </mat-form-field>
+        </div>
+  
         <mat-form-field>
-          <input matInput [matDatepicker]="startDate" placeholder="Start Date" formControlName="startDate">
-          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-          <mat-datepicker #startDate></mat-datepicker>
+          <input matInput placeholder="Zone ID" formControlName="zoneId" />
         </mat-form-field>
   
         <mat-form-field>
-          <input matInput [matDatepicker]="endDate" placeholder="End Date" formControlName="endDate">
-          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-          <mat-datepicker #endDate></mat-datepicker>
+          <input matInput type="number" placeholder="Priority" formControlName="priority" />
         </mat-form-field>
-      </div>
-
-      <mat-checkbox formControlName="active">Active</mat-checkbox>
-
-      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
-    </form>
-  </mat-card-content>
-</mat-card>
-
-<button mat-flat-button color="accent" (click)="toggleDrawer()">Close Drawer</button>
+  
+        <mat-form-field>
+          <input matInput placeholder="File Id" formControlName="fileId" />
+        </mat-form-field>
+        
+        <div formArrayName="labels">
+          <div class="group" *ngFor="let labelControl of labelControls; let i = index">
+            <mat-form-field>
+              <input matInput [formControl]="labelControl" placeholder="Label" />
+            </mat-form-field>
+            <button mat-icon-button color="warn" type="button" (click)="removeLabelInput(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+  
+        <button mat-raised-button color="accent" type="button" (click)="addLabelInput()">Add Input</button>
+  
+        <app-image-upload (imageUploaded)="onImageUploaded($event)"></app-image-upload>
+  
+        <mat-form-field>
+          <input matInput placeholder="URL" formControlName="url" />
+        </mat-form-field>
+  
+        <div class="group">
+          <mat-form-field>
+            <input matInput [matDatepicker]="startDate" placeholder="Start Date" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <input matInput [matDatepicker]="endDate" placeholder="End Date" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+  
+        <mat-checkbox formControlName="active">Active</mat-checkbox>
+  
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
+  <button mat-flat-button color="warn" (click)="toggleDrawer()">Close Drawer</button>
+</div>
