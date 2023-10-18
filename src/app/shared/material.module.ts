@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   exports: [
@@ -31,6 +32,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatSortModule,
     MatIconModule,
+    MatToolbarModule,
   ],
 })
 export class MaterialModule {}

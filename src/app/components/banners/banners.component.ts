@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BannerService } from '../../services/banner.service';
+import { DrawerService } from 'src/app/services/drawer.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatSort,Sort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-banners',
@@ -35,7 +36,7 @@ export class BannersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private bannerService: BannerService) {
+  constructor(private bannerService: BannerService, public drawerService: DrawerService) {
     this.sort = new MatSort();
   }
 
@@ -73,12 +74,14 @@ export class BannersComponent implements OnInit {
   }
 
   openDrawer(item?: any) {
-    this.isDrawerOpen = !this.isDrawerOpen;
-    this.bannerService.setBannerData(item);
+    if(!this.drawerService.isDrawerOpen) {
+      this.drawerService.toggleDrawer();
+      this.bannerService.setBannerData(item);
+    }
   }
 
   toggleDrawer() {
-    this.isDrawerOpen = !this.isDrawerOpen;
+    this.drawerService.toggleDrawer();
   }
 
   saveItem(newItem: any) {

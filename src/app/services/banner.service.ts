@@ -10,13 +10,13 @@ export class BannerService {
   private apiUrl = 'https://development.api.optio.ai/api/v2/banners';
   private blobUploadUrl = 'https://development.api.optio.ai/api/v2/blob/upload';
   private blobDownloadUrl = 'https://development.api.optio.ai/api/v2/blob'; 
+  private bannerDataSubject = new BehaviorSubject<any>(null);
 
   private authToken =
     'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImludGVybnNoaXBAb3B0aW8uYWkiLCJzdWIiOiJpbnRlcm5zaGlwIiwiaW50ZXJuc2hpcElkIjoib3RjaG9raG9uZWxpZHplNEBnbWFpbC5jb20iLCJpYXQiOjE2OTc0MzAyODAsImV4cCI6MTY5ODI5NDI4MH0.g26ka0D00Y53c9tEKJPshf5gn7uXn1OAKCSkw-R7rXUF3YqTPWNWRVu-0NKyr2aEh4_T_SfcfmfkQJKnCXwfjw';
 
   constructor(private http: HttpClient) {}
 
-  private bannerDataSubject = new BehaviorSubject<any>(null);
   bannerData$ = this.bannerDataSubject.asObservable();
 
   uploadImage(blob: File): Observable<any> {

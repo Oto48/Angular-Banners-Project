@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { BannerService } from '../../services/banner.service';
+import { DrawerService } from 'src/app/services/drawer.service';
 
 @Component({
   selector: 'app-banner-form',
@@ -13,7 +14,7 @@ export class BannerFormComponent {
 
   @Output() saveItem = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder, private bannerService: BannerService) {
+  constructor(private fb: FormBuilder, private bannerService: BannerService, public drawerService: DrawerService) {
     this.form = this.fb.group({
       id: ['', Validators.required],
       name: ['', Validators.required],
@@ -36,6 +37,10 @@ export class BannerFormComponent {
         this.form.patchValue(data);
       }
     });
+  }
+
+  toggleDrawer() {
+    this.drawerService.toggleDrawer();
   }
 
   addLabelInput() {

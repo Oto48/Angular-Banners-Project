@@ -4,16 +4,13 @@
       #drawer
       mode="side"
       position="end"
-      [opened]="isDrawerOpen"
+      [opened]="drawerService.isDrawerOpen"
     >
       <div class="example-form">
         <app-banner-form (saveItem)="saveItem($event)"></app-banner-form>
-        <button mat-flat-button color="accent" (click)="toggleDrawer()">Close Drawer</button>
       </div>
     </mat-sidenav>
   </mat-sidenav-container>
-
-  <button mat-button (click)="openDrawer()">add banner</button>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="onSortChange()">
     <ng-container matColumnDef="id">
