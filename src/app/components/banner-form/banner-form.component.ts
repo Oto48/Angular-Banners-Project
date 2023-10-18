@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { BannerService } from '../../services/banner.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { BannerService } from '../../services/banner.service';
 })
 export class BannerFormComponent {
   form: FormGroup;
+  labelControls: FormControl[] = [];
 
   @Output() saveItem = new EventEmitter<any>();
 
@@ -25,6 +26,7 @@ export class BannerFormComponent {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       active: [false],
+      labels: this.fb.array([]),
     });
 
     // Subscribe to the bannerData$
@@ -36,6 +38,19 @@ export class BannerFormComponent {
     });
   }
 
+  addLabelInput() {
+    const newLabelControl = new FormControl('', Validators.required);
+    this.labelControls.push(newLabelControl);
+    const labelsArray = this.form.get('labels') as FormArray;
+    labelsArray.push(newLabelControl);
+  }
+
+  removeLabelInput(index: number) {
+    this.labelControls.splice(index, 1);
+    const labelsArray = this.form.get('labels') as FormArray;
+    labelsArray.removeAt(index);
+  }
+
   onImageUploaded(imageId: string): void {
     this.form.patchValue({ url: imageId });
   }
@@ -45,8 +60,7 @@ export class BannerFormComponent {
       const formData = this.form.value;
       this.bannerService.saveBanner(formData).subscribe((response) => {
         this.saveItem.emit(response);
-        this.form.reset();
-        this.form.get('active')!.setValue(false);
+        this.form.reset({ active: false });
       });
     }
   }

@@ -32,6 +32,19 @@
       <mat-form-field>
         <input matInput placeholder="File Id" formControlName="fileId" />
       </mat-form-field>
+      
+      <div formArrayName="labels">
+        <div class="group" *ngFor="let labelControl of labelControls; let i = index">
+          <mat-form-field>
+            <input matInput [formControl]="labelControl" placeholder="Label" />
+          </mat-form-field>
+          <button mat-icon-button color="warn" type="button" (click)="removeLabelInput(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <button mat-raised-button color="accent" type="button" (click)="addLabelInput()">Add Input</button>
 
       <app-image-upload (imageUploaded)="onImageUploaded($event)"></app-image-upload>
 
