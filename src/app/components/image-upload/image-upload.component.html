@@ -1,8 +1,11 @@
-<form (ngSubmit)="onSubmit()" #imageForm="ngForm" enctype="multipart/form-data">
-    <label for="image">Select Image:</label>
-    <input type="file" id="image" name="image" accept="image/*" (change)="onFileSelected($event)" required />
-    
-    <button type="submit" [disabled]="imageForm.invalid || uploading">Upload Image</button>
-
-    <p *ngIf="uploadError" class="error-message">{{ uploadError }}</p>
+<form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
+    <label for="image" class="custom-button">
+        <button type="button" mat-fab color="accent" (click)="selectImage()">
+            <mat-icon>add_photo_alternate</mat-icon>
+        </button>
+    </label>
+    <input #fileInput type="file" id="image" name="image" accept="image/*" (change)="onFileSelected($event)" formControlName="image" required />
+    <p>{{ imageName ? imageName : 'No File Selected' }}</p>
+    <button mat-stroked-button color="primary" type="submit" [disabled]="imageForm.invalid || uploading">Submit</button>
 </form>
+<p *ngIf="uploadError" class="error-message">{{ uploadError }}</p>

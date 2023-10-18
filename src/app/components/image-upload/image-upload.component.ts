@@ -1,23 +1,38 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BannerService } from '../../services/banner.service';
 import { HttpClient } from '@angular/common/http';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
-  styleUrls: [],
+  styleUrls: ['./image-upload.component.scss'],
 })
 export class ImageUploadComponent {
+  imageForm: FormGroup;
   image: File | null = null;
-  uploadError: string | null = null;
   uploading = false;
+  uploadError: string | null = null;
+  imageName = '';
 
   @Output() imageUploaded = new EventEmitter<string>();
+  @ViewChild('fileInput') fileInput: any;
 
-  constructor(private bannerService: BannerService, private http: HttpClient) {}
+  constructor(private bannerService: BannerService, private http: HttpClient, private fb: FormBuilder) {
+    this.imageForm = this.fb.group({
+      image: [null, Validators.required],
+    });
+  }
 
   onFileSelected(event: any): void {
     this.image = event.target.files[0];
+    this.imageName = this.image ? this.image.name : '';
+  }
+
+  selectImage(): void {
+    // Trigger the original file input element when the button is clicked
+    this.fileInput.nativeElement.click();
   }
 
   onSubmit(): void {
@@ -44,4 +59,5 @@ export class ImageUploadComponent {
       }
     );
   }
+  
 }

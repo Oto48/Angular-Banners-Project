@@ -30,7 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatCheckboxModule,
     MatTableModule,
     MatSortModule,
-    MatIconModule
+    MatIconModule,
   ],
 })
 export class MaterialModule {}
