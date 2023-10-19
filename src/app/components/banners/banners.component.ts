@@ -96,12 +96,11 @@ export class BannersComponent implements OnInit {
     if (index) {
       Object.assign(index, newItem.data);
       this.getImage(index);
-      this.toggleDrawer();
     } else {
       this.getImage(newItem.data);
       this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
-      this.toggleDrawer();
     }
+    this.toggleDrawer();
   }
 
   getImage(data: any): void {

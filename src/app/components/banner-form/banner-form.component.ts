@@ -62,7 +62,7 @@ export class BannerFormComponent {
     this.form.patchValue({ url: imageId });
   }
 
-  onSubmit() {
+  submit() {
     if (this.form.valid) {
       const formData = this.form.value;
       this.bannerService.saveBanner(formData).subscribe((response) => {
