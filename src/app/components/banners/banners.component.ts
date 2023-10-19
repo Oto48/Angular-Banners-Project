@@ -27,7 +27,7 @@ export class BannersComponent implements OnInit {
     'language',
     'zoneId',
     'priority',
-    'fileId',
+    'url',
     'startDate',
     'endDate',
     'active',
@@ -104,7 +104,7 @@ export class BannersComponent implements OnInit {
   }
 
   getImage(data: any): void {
-    this.bannerService.downloadBlob(data.url).subscribe(
+    this.bannerService.downloadBlob(data.fileId).subscribe(
       (image: Blob) => {
         const imageUrl = URL.createObjectURL(image);
         data.img = imageUrl;

@@ -29,10 +29,6 @@
         <mat-form-field>
           <input matInput type="number" placeholder="Priority" formControlName="priority" />
         </mat-form-field>
-  
-        <mat-form-field>
-          <input matInput placeholder="File Id" formControlName="fileId" />
-        </mat-form-field>
         
         <div formArrayName="labels">
           <div class="group" *ngFor="let labelControl of labelControls; let i = index">

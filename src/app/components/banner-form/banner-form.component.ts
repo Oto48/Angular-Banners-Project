@@ -59,7 +59,7 @@ export class BannerFormComponent {
   }
 
   onImageUploaded(imageId: string): void {
-    this.form.patchValue({ url: imageId });
+    this.form.patchValue({ fileId: imageId });
   }
 
   submit() {
