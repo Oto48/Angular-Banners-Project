@@ -43,7 +43,7 @@ export class BannersComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<any[]>([]);
-    this.loadBanners(0, this.sort.active, this.sort.direction, '');
+    this.loadBanners(0, this.sort.active, this.sort.direction, this.searchQuery);
   }
 
   onSearch() {
@@ -59,7 +59,7 @@ export class BannersComponent implements OnInit {
   // Event handler for page change
   onPageChange(event: any): void {
     this.page = event.pageIndex;
-    this.loadBanners(this.page, this.sort.active, this.sort.direction, '');
+    this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
   }
 
   // Private method to load banners
@@ -99,7 +99,7 @@ export class BannersComponent implements OnInit {
       this.toggleDrawer();
     } else {
       this.getImage(newItem.data);
-      this.loadBanners(this.page, this.sort.active, this.sort.direction, '');
+      this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
       this.toggleDrawer();
     }
   }

@@ -41,6 +41,8 @@ export class BannerFormComponent {
 
   toggleDrawer() {
     this.drawerService.toggleDrawer();
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
   }
 
   addLabelInput() {
