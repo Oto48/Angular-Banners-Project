@@ -1,16 +1,23 @@
 <div>
-  <mat-sidenav-container class="example-container">
+  <mat-sidenav-container class="container">
     <mat-sidenav
       #drawer
       mode="side"
       position="end"
       [opened]="drawerService.isDrawerOpen"
     >
-      <div class="example-form">
+      <div class="form">
         <app-banner-form (saveItem)="saveItem($event)"></app-banner-form>
       </div>
     </mat-sidenav>
   </mat-sidenav-container>
+
+  <mat-form-field class="search-bar-container">
+    <div class="search-bar">
+      <input matInput placeholder="Search" [(ngModel)]="searchQuery" (input)="onSearch()">
+      <mat-icon>search</mat-icon>
+    </div>
+  </mat-form-field>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="onSortChange()">
     <ng-container matColumnDef="id">

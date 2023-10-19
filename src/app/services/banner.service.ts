@@ -45,26 +45,21 @@ export class BannerService {
     this.bannerDataSubject.next(data);
   }
 
-  getBanners(
-    pageIndex: number,
-    sortBy: string,
-    sortDirection: string
-  ): Observable<any> {
+  getBanners(pageIndex: number, sortBy: string, sortDirection: string, searchQuery: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
     });
-
+  
+    const requestData = {
+      pageSize: 10,
+      pageIndex,
+      sortBy,
+      sortDirection,
+      search: searchQuery, // Add the searchQuery parameter
+    };
+  
     return this.http
-      .post(
-        `${this.apiUrl}/find`,
-        {
-          pageSize: 10,
-          pageIndex,
-          sortBy,
-          sortDirection,
-        },
-        { headers }
-      )
+      .post(`${this.apiUrl}/find`, requestData, { headers })
       .pipe(map((response: any) => response.data));
   }
 

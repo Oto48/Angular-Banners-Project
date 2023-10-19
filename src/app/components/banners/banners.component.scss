@@ -3,18 +3,29 @@
   flex-wrap: wrap;
 }
 
-.example-container {
+.container {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   z-index: 10;
 
-  .example-form {
+  form {
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
+  }
+}
+
+.search-bar-container {
+  display: block;
+  width: 500px;
+  margin: auto;
+
+  .search-bar{
+    display: flex;
+    flex-direction: row;
   }
 }

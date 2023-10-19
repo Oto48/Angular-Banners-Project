@@ -15,6 +15,7 @@ export class BannersComponent implements OnInit {
   length = 0;
   page = 0;
   isDrawerOpen = false;
+  searchQuery: string = '';
   altImg = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
   dataSource!: MatTableDataSource<any>;
@@ -42,7 +43,12 @@ export class BannersComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<any[]>([]);
-    this.loadBanners(0, this.sort.active, this.sort.direction);
+    this.loadBanners(0, this.sort.active, this.sort.direction, '');
+  }
+
+  onSearch() {
+    this.page = 0;
+    this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
   }
 
   // Event handler for sorting change
@@ -53,17 +59,18 @@ export class BannersComponent implements OnInit {
   // Event handler for page change
   onPageChange(event: any): void {
     this.page = event.pageIndex;
-    this.loadBanners(this.page, this.sort.active, this.sort.direction);
+    this.loadBanners(this.page, this.sort.active, this.sort.direction, '');
   }
 
   // Private method to load banners
   private loadBanners(
     pageIndex: number,
     sortBy: string,
-    sortDirection: string
+    sortDirection: string,
+    searchQuery: string
   ): void {
     this.bannerService
-      .getBanners(pageIndex, sortBy, sortDirection)
+      .getBanners(pageIndex, sortBy, sortDirection, searchQuery)
       .subscribe((banners) => {
         this.length = banners.total;
         this.dataSource.data = banners.entities;
@@ -92,7 +99,7 @@ export class BannersComponent implements OnInit {
       this.toggleDrawer();
     } else {
       this.getImage(newItem.data);
-      this.loadBanners(this.page, this.sort.active, this.sort.direction);
+      this.loadBanners(this.page, this.sort.active, this.sort.direction, '');
       this.toggleDrawer();
     }
   }
