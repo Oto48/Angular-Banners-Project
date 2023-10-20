@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BannerService } from '../../services/banner.service';
 import { DrawerService } from 'src/app/services/drawer.service';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { Banner, SaveBannerRequest } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-banners',
@@ -11,12 +12,12 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./banners.component.scss'],
 })
 export class BannersComponent implements OnInit {
-  pageSize = 10;
-  length = 0;
-  page = 0;
-  isDrawerOpen = false;
+  pageSize: number = 10;
+  length: number = 0;
+  page: number = 0;
+  isDrawerOpen: boolean = false;
   searchQuery: string = '';
-  altImg = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
+  altImg: string = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
   dataSource!: MatTableDataSource<any>;
 
@@ -59,7 +60,7 @@ export class BannersComponent implements OnInit {
   }
 
   // Event handler for page change
-  onPageChange(event: any): void {
+  onPageChange(event: PageEvent): void {
     this.page = event.pageIndex;
     this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
   }
@@ -74,6 +75,7 @@ export class BannersComponent implements OnInit {
     this.bannerService
       .getBanners(pageIndex, sortBy, sortDirection, searchQuery)
       .subscribe((banners) => {
+        console.log(banners)
         this.length = banners.total;
         this.dataSource.data = banners.entities;
         this.dataSource.data.forEach((element) => {
@@ -82,7 +84,7 @@ export class BannersComponent implements OnInit {
       });
   }
 
-  openDrawer(item?: any) {
+  openDrawer(item: Banner) {
     if(!this.drawerService.isDrawerOpen) {
       this.drawerService.toggleDrawer();
       this.bannerService.setBannerData(item);
@@ -93,7 +95,7 @@ export class BannersComponent implements OnInit {
     this.drawerService.toggleDrawer();
   }
 
-  saveItem(newItem: any) {
+  saveItem(newItem: SaveBannerRequest) {
     const index = this.dataSource.data.find((banner) => banner.id === newItem.data.id);
     if (index) {
       Object.assign(index, newItem.data);

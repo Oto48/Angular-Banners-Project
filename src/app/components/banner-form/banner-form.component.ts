@@ -12,9 +12,9 @@ export class BannerFormComponent {
   form: FormGroup;
   labelControls: FormControl[] = [];
   image: File | null = null;
-  imageName = '';
-  imageSrc = '' ;
-  uploading = false;
+  imageName: string = '';
+  imageSrc: string = '' ;
+  uploading: boolean = false;
 
   @Output() saveItem = new EventEmitter<any>();
   @ViewChild('fileInput') fileInput: any;
@@ -55,9 +55,13 @@ export class BannerFormComponent {
     this.imageName = '';
   }
 
-  onFileSelected(event: any): void {
-    this.image = event.target.files[0];
-    this.imageName = this.image ? this.image.name : '';
+  onFileSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.image = inputElement.files[0];
+      this.imageName = this.image ? this.image.name : '';
+    }
   }
 
   selectImage(): void {

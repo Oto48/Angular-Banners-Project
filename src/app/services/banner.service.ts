@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { GetBannerRequest, BannersResponse, Banner } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -45,17 +46,17 @@ export class BannerService {
     this.bannerDataSubject.next(data);
   }
 
-  getBanners(pageIndex: number, sortBy: string, sortDirection: string, searchQuery: string): Observable<any> {
+  getBanners(pageIndex: number, sortBy: string, sortDirection: string, searchQuery: string): Observable<BannersResponse> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
     });
   
-    const requestData = {
+    const requestData:GetBannerRequest = {
       pageSize: 10,
       pageIndex,
       sortBy,
       sortDirection,
-      search: searchQuery, // Add the searchQuery parameter
+      search: searchQuery,
     };
   
     return this.http
@@ -63,7 +64,8 @@ export class BannerService {
       .pipe(map((response: any) => response.data));
   }
 
-  saveBanner(bannerData: any): Observable<any> {
+  saveBanner(bannerData: Banner): Observable<any> {
+    console.log(bannerData)
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
     });
