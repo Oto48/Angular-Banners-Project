@@ -40,15 +40,15 @@ export class BannerFormComponent {
     // Subscribe to the bannerData$
     this.bannerService.bannerData$.subscribe((data) => {
       if (data) {
-        // Update form fields with the received data
         this.form.patchValue(data);
         this.imageSrc = data.img;
-        console.log(data);
+        this.populateLabels(data.labels);
       }
     });
   }
 
   toggleDrawer() {
+    this.clearLabels();
     this.drawerService.toggleDrawer();
     this.form.reset({ id: this.randomId(), active: false });
     this.imageSrc = '';
@@ -73,7 +73,6 @@ export class BannerFormComponent {
         (response: any) => {
           this.uploading = false;
 
-          console.log('Image uploaded successfully. File ID:', response);
           this.form.patchValue({ fileId: response.id });
           this.bannerService.downloadBlob(response.id).subscribe(
             (image: Blob) => {
@@ -106,6 +105,22 @@ export class BannerFormComponent {
     labelsArray.removeAt(index);
   }
 
+  populateLabels(labels: string[]) {
+    const labelsArray = this.form.get('labels') as FormArray;
+    labelsArray.clear();
+    labels.forEach(() => {
+      this.addLabelInput();
+    });
+    labelsArray.patchValue(labels);
+  }
+
+  clearLabels() {
+    const labelsArray = this.form.get('labels') as FormArray;
+    labelsArray.clear();
+    // labelsArray.push(this.labelControls[0]);
+    this.labelControls = [];
+  }
+
   // Generate a random 9-digit number
   randomId(): number {
     return Math.floor(100000000 + Math.random() * 900000000);
@@ -119,6 +134,7 @@ export class BannerFormComponent {
         this.form.reset({ id: this.randomId(), active: false });
         this.imageSrc = '';
         this.imageName = '';
+        this.clearLabels();
       });
     }
   }
