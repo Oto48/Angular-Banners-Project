@@ -1,9 +1,12 @@
+@import '../../../styles.scss';
+
 .container {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 20px;
 
-    mat-card {
+    > mat-card {
         width: 500px;
 
         mat-card-content {
@@ -23,6 +26,41 @@
                     gap: 10px;
                     mat-form-field {
                         width: 100%;
+                    }
+                }
+
+                .file-card {
+                    margin: 20px 0;
+                    display: flex;
+                    gap: 30px;
+                    .file-container {
+                        display: flex;
+                        justify-content: space-between;
+                        button {
+                            margin: 0;
+                        }
+                        #image {
+                            visibility: hidden;
+                            width: 0;
+                            position: absolute;
+                        }
+
+                        p {
+                            max-width: 200px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            margin: 0;
+                        }
+
+                        .file {
+                            transform: translate(50%, 0);
+                            .icon {
+                                cursor: pointer;
+                                display: flex;
+                                align-items: center;
+                                transform: scale(3);
+                            }
+                        }
                     }
                 }
             }

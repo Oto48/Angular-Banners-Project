@@ -4,11 +4,11 @@
       <form [formGroup]="form">
         <div class="group">
           <mat-form-field>
-            <input matInput placeholder="ID" formControlName="id" />
-          </mat-form-field>
-    
-          <mat-form-field>
             <input matInput placeholder="Name" formControlName="name" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Language" formControlName="language" />
           </mat-form-field>
         </div>
   
@@ -16,15 +16,11 @@
           <mat-form-field>
             <input matInput placeholder="Channel ID" formControlName="channelId" />
           </mat-form-field>
-    
+
           <mat-form-field>
-            <input matInput placeholder="Language" formControlName="language" />
+            <input matInput placeholder="Zone ID" formControlName="zoneId" />
           </mat-form-field>
         </div>
-  
-        <mat-form-field>
-          <input matInput placeholder="Zone ID" formControlName="zoneId" />
-        </mat-form-field>
   
         <mat-form-field>
           <input matInput type="number" placeholder="Priority" formControlName="priority" />
@@ -41,9 +37,31 @@
           </div>
         </div>
   
-        <button mat-raised-button color="accent" type="button" (click)="addLabelInput()">Add Input</button>
-  
-        <app-image-upload (imageUploaded)="onImageUploaded($event)"></app-image-upload>
+        <button mat-raised-button class="mat-success" type="button" (click)="addLabelInput()">Add Label</button>
+
+        <mat-card class="file-card">
+          <mat-card-header>
+            <mat-card-title>Upload Image</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="file-container">
+              <label for="fileId" class="file">
+                <div class="icon" *ngIf="!uploading" type="button" (click)="selectImage()">
+                  <mat-icon color="primary">add_photo_alternate</mat-icon>
+                </div>
+                <mat-progress-spinner
+                  *ngIf="uploading"
+                  mode="indeterminate"
+                  diameter="50"
+                  color="primary"
+                ></mat-progress-spinner>
+              </label>
+              <input #fileInput type="file" id="image" name="image" accept="image/*" (change)="onFileSelected($event)" required />
+              <p>{{ imageName ? imageName : 'No File Selected' }}</p>
+              <button mat-stroked-button color="primary" type="button" (click)="uploadImage()" [disabled]="uploading">Upload</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
   
         <mat-form-field>
           <input matInput placeholder="URL" formControlName="url" />
@@ -65,7 +83,7 @@
   
         <mat-checkbox formControlName="active">Active</mat-checkbox>
   
-        <button mat-raised-button color="primary" type="button" [disabled]="form.invalid" (click)="submit()">Submit</button>
+        <button mat-raised-button color="primary" type="button" [disabled]="form.invalid || uploading" (click)="submit()">Submit</button>
       </form>
     </mat-card-content>
   </mat-card>

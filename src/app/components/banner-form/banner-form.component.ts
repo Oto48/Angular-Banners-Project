@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { BannerService } from '../../services/banner.service';
 import { DrawerService } from 'src/app/services/drawer.service';
@@ -11,12 +11,19 @@ import { DrawerService } from 'src/app/services/drawer.service';
 export class BannerFormComponent {
   form: FormGroup;
   labelControls: FormControl[] = [];
+  image: File | null = null;
+  imageName = '';
+  imageSrc = '' ;
+  uploading = false;
 
   @Output() saveItem = new EventEmitter<any>();
+  @ViewChild('fileInput') fileInput: any;
 
   constructor(private fb: FormBuilder, private bannerService: BannerService, public drawerService: DrawerService) {
+    const randomId = Math.floor(100000000 + Math.random() * 900000000);
+
     this.form = this.fb.group({
-      id: ['', Validators.required],
+      id: [randomId, Validators.required],
       name: ['', Validators.required],
       channelId: ['', Validators.required],
       language: ['', Validators.required],
@@ -35,14 +42,55 @@ export class BannerFormComponent {
       if (data) {
         // Update form fields with the received data
         this.form.patchValue(data);
+        this.imageSrc = data.img;
+        console.log(data);
       }
     });
   }
 
   toggleDrawer() {
     this.drawerService.toggleDrawer();
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
+    this.form.reset({ id: this.randomId(), active: false });
+    this.imageSrc = '';
+    this.imageName = '';
+  }
+
+  onFileSelected(event: any): void {
+    this.image = event.target.files[0];
+    this.imageName = this.image ? this.image.name : '';
+  }
+
+  selectImage(): void {
+    // Trigger the original file input element when the button is clicked
+    this.fileInput.nativeElement.click();
+  }
+
+  uploadImage():void {
+    if (this.image) {
+      this.uploading = true;
+
+      this.bannerService.uploadImage(this.image).subscribe(
+        (response: any) => {
+          this.uploading = false;
+
+          console.log('Image uploaded successfully. File ID:', response);
+          this.form.patchValue({ fileId: response.id });
+          this.bannerService.downloadBlob(response.id).subscribe(
+            (image: Blob) => {
+              const imageUrl = URL.createObjectURL(image);
+              this.imageSrc = imageUrl;
+            },
+            (error) => {
+              console.error('Error downloading image:', error);
+            }
+          );
+        },
+        (error) => {
+          this.uploading = false;
+          console.error('Image upload error:', error);
+        }
+      );
+    }
   }
 
   addLabelInput() {
@@ -58,8 +106,9 @@ export class BannerFormComponent {
     labelsArray.removeAt(index);
   }
 
-  onImageUploaded(imageId: string): void {
-    this.form.patchValue({ fileId: imageId });
+  // Generate a random 9-digit number
+  randomId(): number {
+    return Math.floor(100000000 + Math.random() * 900000000);
   }
 
   submit() {
@@ -67,7 +116,9 @@ export class BannerFormComponent {
       const formData = this.form.value;
       this.bannerService.saveBanner(formData).subscribe((response) => {
         this.saveItem.emit(response);
-        this.form.reset({ active: false });
+        this.form.reset({ id: this.randomId(), active: false });
+        this.imageSrc = '';
+        this.imageName = '';
       });
     }
   }
