@@ -65,7 +65,6 @@ export class BannerService {
   }
 
   saveBanner(bannerData: Banner): Observable<any> {
-    console.log(bannerData)
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
     });

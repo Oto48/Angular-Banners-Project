@@ -47,6 +47,7 @@ export class BannerFormComponent {
     });
   }
 
+  // Open or close form and reset all the data
   toggleDrawer() {
     this.clearLabels();
     this.drawerService.toggleDrawer();
@@ -69,6 +70,7 @@ export class BannerFormComponent {
     this.fileInput.nativeElement.click();
   }
 
+  // Upload image in backend
   uploadImage():void {
     if (this.image) {
       this.uploading = true;
@@ -96,6 +98,7 @@ export class BannerFormComponent {
     }
   }
 
+  // Add new label when button is clicked
   addLabelInput() {
     const newLabelControl = new FormControl('', Validators.required);
     this.labelControls.push(newLabelControl);
@@ -103,12 +106,14 @@ export class BannerFormComponent {
     labelsArray.push(newLabelControl);
   }
 
+  // Remove label
   removeLabelInput(index: number) {
     this.labelControls.splice(index, 1);
     const labelsArray = this.form.get('labels') as FormArray;
     labelsArray.removeAt(index);
   }
 
+  // Fetch the user's labels and set them to the form.
   populateLabels(labels: string[]) {
     const labelsArray = this.form.get('labels') as FormArray;
     labelsArray.clear();
@@ -121,7 +126,6 @@ export class BannerFormComponent {
   clearLabels() {
     const labelsArray = this.form.get('labels') as FormArray;
     labelsArray.clear();
-    // labelsArray.push(this.labelControls[0]);
     this.labelControls = [];
   }
 

@@ -43,12 +43,13 @@ export class BannersComponent implements OnInit {
     this.sort = new MatSort();
   }
 
+  // Fetch data
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<any[]>([]);
     this.loadBanners(0, this.sort.active, this.sort.direction, this.searchQuery);
-    console.log(this.dataSource)
   }
 
+  // Search banners
   onSearch() {
     this.page = 0;
     this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
@@ -75,7 +76,6 @@ export class BannersComponent implements OnInit {
     this.bannerService
       .getBanners(pageIndex, sortBy, sortDirection, searchQuery)
       .subscribe((banners) => {
-        console.log(banners)
         this.length = banners.total;
         this.dataSource.data = banners.entities;
         this.dataSource.data.forEach((element) => {
@@ -84,6 +84,7 @@ export class BannersComponent implements OnInit {
       });
   }
 
+  // Open form with selected data
   openDrawer(item: Banner) {
     if(!this.drawerService.isDrawerOpen) {
       this.drawerService.toggleDrawer();
@@ -91,10 +92,12 @@ export class BannersComponent implements OnInit {
     }
   }
 
+  // Open form
   toggleDrawer() {
     this.drawerService.toggleDrawer();
   }
 
+  // Save new banner or update existing one
   saveItem(newItem: SaveBannerRequest) {
     const index = this.dataSource.data.find((banner) => banner.id === newItem.data.id);
     if (index) {
@@ -106,7 +109,8 @@ export class BannersComponent implements OnInit {
     }
     this.toggleDrawer();
   }
-
+  
+  // Fetch image
   getImage(data: any): void {
     this.bannerService.downloadBlob(data.fileId).subscribe(
       (image: Blob) => {
