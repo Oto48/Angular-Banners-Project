@@ -31,6 +31,7 @@ export class BannersComponent implements OnInit {
     'startDate',
     'endDate',
     'active',
+    'labels',
     'img',
   ];
 
@@ -44,6 +45,7 @@ export class BannersComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<any[]>([]);
     this.loadBanners(0, this.sort.active, this.sort.direction, this.searchQuery);
+    console.log(this.dataSource)
   }
 
   onSearch() {
