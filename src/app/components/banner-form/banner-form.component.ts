@@ -59,6 +59,7 @@ export class BannerFormComponent {
     this.form.reset({ id: this.randomId(), active: false });
     this.imageSrc = '';
     this.imageName = '';
+    this.deleteBanner = false;
   }
 
   onFileSelected(event: Event): void {
