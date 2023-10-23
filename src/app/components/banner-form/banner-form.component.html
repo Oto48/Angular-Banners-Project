@@ -1,4 +1,15 @@
 <div class="container">
+  <div *ngIf="deleteBanner" class="remove">
+    <button *ngIf="!removing" mat-icon-button color="warn" type="button" (click)="removeBanner()">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <mat-progress-spinner
+      *ngIf="removing"
+      mode="indeterminate"
+      diameter="50"
+      color="warn"
+    ></mat-progress-spinner>
+  </div>
   <mat-card>
     <mat-card-content>
       <form [formGroup]="form">
@@ -8,22 +19,30 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput placeholder="Language" formControlName="language" />
+            <mat-label>Language</mat-label>
+            <mat-select formControlName="language">
+              <mat-option *ngFor="let lang of languages" [value]="lang">{{ lang }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
   
         <div class="group">
           <mat-form-field>
-            <input matInput placeholder="Channel ID" formControlName="channelId" />
+            <mat-label>Channel ID</mat-label>
+            <input matInput formControlName="channelId" />
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput placeholder="Zone ID" formControlName="zoneId" />
+            <mat-label>Zone ID</mat-label>
+            <mat-select formControlName="zoneId">
+              <mat-option *ngFor="let zone of zoneList" [value]="zone">{{ zone }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
   
         <mat-form-field>
-          <input matInput type="number" min="0" placeholder="Priority" formControlName="priority" />
+          <mat-label>Priority</mat-label>
+          <input matInput type="number" min="0" placeholder="Min 0" formControlName="priority" />
         </mat-form-field>
         
         <div formArrayName="labels">
@@ -64,18 +83,21 @@
         </mat-card>
   
         <mat-form-field>
-          <input matInput placeholder="URL" formControlName="url" />
+          <mat-label>URL</mat-label>
+          <input matInput formControlName="url" />
         </mat-form-field>
   
         <div class="group">
           <mat-form-field>
-            <input matInput [matDatepicker]="startDate" placeholder="Start Date" formControlName="startDate">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startDate" formControlName="startDate">
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>
           </mat-form-field>
     
           <mat-form-field>
-            <input matInput [matDatepicker]="endDate" placeholder="End Date" formControlName="endDate">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="endDate" formControlName="endDate">
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate></mat-datepicker>
           </mat-form-field>

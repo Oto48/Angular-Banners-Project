@@ -5,6 +5,16 @@
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    
+    .remove {
+        button, mat-progress-spinner {
+            float: right;
+            
+            mat-icon {
+                scale: 2;
+            }
+        }
+    }
 
     > mat-card {
         width: 500px;

@@ -12,9 +12,13 @@ export class BannerFormComponent {
   form: FormGroup;
   labelControls: FormControl[] = [];
   image: File | null = null;
+  languages: string[] = ['GE', 'EN', 'FR', 'DE'];
+  zoneList: string[] = ['Header', 'Right Sidebar', 'Footer', 'Main Hero Slider'];
   imageName: string = '';
   imageSrc: string = '' ;
   uploading: boolean = false;
+  removing: boolean = false;
+  deleteBanner: boolean = false;
 
   @Output() saveItem = new EventEmitter<any>();
   @ViewChild('fileInput') fileInput: any;
@@ -40,6 +44,7 @@ export class BannerFormComponent {
     // Subscribe to the bannerData$
     this.bannerService.bannerData$.subscribe((data) => {
       if (data) {
+        this.deleteBanner = true;
         this.form.patchValue(data);
         this.imageSrc = data.img;
         this.populateLabels(data.labels);
@@ -127,6 +132,21 @@ export class BannerFormComponent {
     const labelsArray = this.form.get('labels') as FormArray;
     labelsArray.clear();
     this.labelControls = [];
+  }
+
+  // Remove Selected Banner.
+  removeBanner() {
+    const bannerId = this.form.get('id')?.value; // Get the ID of the banner to remove
+    if (bannerId) {
+      this.removing = true;
+      this.bannerService.removeBanner(bannerId).subscribe((response) => {
+        if (response.success) {
+          this.saveItem.emit();
+          this.form.reset({ id: this.randomId(), active: false });
+          this.removing = false;
+        }
+      });
+    }
   }
 
   // Generate a random 9-digit number

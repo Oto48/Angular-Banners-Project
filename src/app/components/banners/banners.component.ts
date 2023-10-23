@@ -87,7 +87,7 @@ export class BannersComponent implements OnInit {
   // Open form with selected data
   openDrawer(item: Banner) {
     if(!this.drawerService.isDrawerOpen) {
-      this.drawerService.toggleDrawer();
+      this.toggleDrawer();
       this.bannerService.setBannerData(item);
     }
   }
@@ -98,13 +98,17 @@ export class BannersComponent implements OnInit {
   }
 
   // Save new banner or update existing one
-  saveItem(newItem: SaveBannerRequest) {
-    const index = this.dataSource.data.find((banner) => banner.id === newItem.data.id);
-    if (index) {
-      Object.assign(index, newItem.data);
-      this.getImage(index);
+  saveItem(newItem?: SaveBannerRequest) {
+    if(newItem) {
+      const index = this.dataSource.data.find((banner) => banner.id === newItem.data.id);
+      if (index) {
+        Object.assign(index, newItem.data);
+        this.getImage(index);
+      } else {
+        this.getImage(newItem.data);
+        this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
+      }
     } else {
-      this.getImage(newItem.data);
       this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
     }
     this.toggleDrawer();
