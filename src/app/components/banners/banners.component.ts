@@ -111,7 +111,6 @@ export class BannersComponent implements OnInit {
     } else {
       this.loadBanners(this.page, this.sort.active, this.sort.direction, this.searchQuery);
     }
-    this.toggleDrawer();
   }
   
   // Fetch image

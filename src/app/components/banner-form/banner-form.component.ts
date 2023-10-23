@@ -60,6 +60,7 @@ export class BannerFormComponent {
     this.imageSrc = '';
     this.imageName = '';
     this.deleteBanner = false;
+    this.clearLabels();
   }
 
   onFileSelected(event: Event): void {
@@ -161,10 +162,7 @@ export class BannerFormComponent {
       this.bannerService.saveBanner(formData).subscribe((response) => {
         this.saveItem.emit(response);
         this.form.reset({ id: this.randomId(), active: false });
-        this.imageSrc = '';
-        this.imageName = '';
-        this.clearLabels();
-        this.deleteBanner = false;
+        this.toggleDrawer();
       });
     }
   }
