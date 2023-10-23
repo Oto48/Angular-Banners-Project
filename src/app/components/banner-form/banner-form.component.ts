@@ -164,6 +164,7 @@ export class BannerFormComponent {
         this.imageSrc = '';
         this.imageName = '';
         this.clearLabels();
+        this.deleteBanner = false;
       });
     }
   }
